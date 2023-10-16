@@ -77,21 +77,20 @@ Feature: Clockify
 
   @ListarProyectooNoAutorizado
   Scenario: Listar proyecto
-    Given call Clockify.feature@WorkSpace
-    And base url env.base_url_clockify
-    And endpoint /
-    When execute method GET
-    Then the status code should be 200
-    * define projectId = $.[0].id
-
-  @ListarProyecto
-  Scenario: Listar proyecto
-    Given call Clockify.feature@WorkSpace
+    Given header x-api-key = N
+    And call Clockify.feature@WorkSpace
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects/
     When execute method GET
-    Then the status code should be 200
-    * define projectId = $.[0].id
+    Then the status code should be 401
+
+  @ListarProyectoNoEncontrado
+  Scenario: Listar proyecto
+    Given call Clockify.feature@WorkSpace
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/proje/
+    When execute method GET
+    Then the status code should be 404
 
   @BuscarporID
   Scenario: Buscar proyecto por ID
@@ -100,6 +99,23 @@ Feature: Clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     When execute method GET
     Then the status code should be 200
+
+  @BuscarporIDNoAutorizado
+  Scenario: Buscar proyecto por ID
+    Given header x-api-key = N
+    And call Clockify.feature@ListarProyecto
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
+    When execute method GET
+    Then the status code should be 401
+
+  @BuscarporIDNoEncontrado
+  Scenario: Buscar proyecto por ID
+    Given call Clockify.feature@ListarProyecto
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/projec/{{projectId}}
+    When execute method GET
+    Then the status code should be 404
 
   @RenombrarProyecto
   Scenario: Renombrar un proyecto
@@ -110,4 +126,34 @@ Feature: Clockify
     When execute method PUT
     Then the status code should be 200
     And response should be name = ProyectoRenombrado
+
+  @RenombrarProyectoFallo1
+  Scenario: Renombrar un proyecto
+    Given header x-api-key = N
+    And call Clockify.feature@ListarProyecto
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
+    And set value "ProyectoRenombrado" of key name in body agregarProyecto.json
+    When execute method PUT
+    Then the status code should be 401
+
+  @RenombrarProyectoFallo2
+  Scenario: Renombrar un proyecto
+    Given call Clockify.feature@ListarProyecto
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
+    And set value "ProyectoRenombrado" of key name in body no json
+    When execute method PUT
+    Then the status code should be 400
+
+  @RenombrarProyectoFallo3
+  Scenario: Renombrar un proyecto
+    Given call Clockify.feature@ListarProyecto
+    And base url env.base_url_clockify
+    And endpoint /v
+    And set value "ProyectoRenombrado" of key name in body agregarProyecto.json
+    When execute method PUT
+    Then the status code should be 404
+
+
 
