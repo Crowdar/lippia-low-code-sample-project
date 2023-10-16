@@ -14,7 +14,22 @@ Feature: Clockify
     Then the status code should be 200
     * define workspaceId = $.[0].id
 
-  @Crear
+  @WorkSpaceNoAutorizado
+  Scenario: Listar Espacio de Trabajo
+    Given header x-api-key = n
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces
+    When execute method GET
+    Then the status code should be 401
+
+  @WorkSpaceNoEncontrado
+  Scenario: Listar Espacio de Trabajo
+    Given base url env.base_url_clockify
+    And endpoint /v1/workspace
+    When execute method GET
+    Then the status code should be 404
+
+  @CrearProyecto
   Scenario: Crear un proyecto
     Given call Clockify.feature@WorkSpace
     And base url env.base_url_clockify
@@ -22,6 +37,52 @@ Feature: Clockify
     And set value "ProyectoTest" of key name in body agregarProyecto.json
     When execute method POST
     Then the status code should be 201
+
+  @CrearProyectoMalaRespuesta
+  Scenario: Crear un proyecto
+    Given call Clockify.feature@WorkSpace
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/projects
+    And set value "ProyectoTest" of key name in body agregarProyecto.jso
+    When execute method POST
+    Then the status code should be 400
+
+  @CrearProyectoNoAutorizado
+  Scenario: Crear un proyecto
+    Given header x-api-key = N
+    And call Clockify.feature@WorkSpace
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/projects
+    And set value "ProyectoTest" of key name in body agregarProyecto.json
+    When execute method POST
+    Then the status code should be 401
+
+  @CrearNoEncontrado
+  Scenario: Crear un proyecto
+    Given call Clockify.feature@WorkSpace
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/project
+    And set value "ProyectoTest" of key name in body agregarProyecto.json
+    When execute method POST
+    Then the status code should be 404
+
+  @ListarProyecto
+  Scenario: Listar proyecto
+    Given call Clockify.feature@WorkSpace
+    And base url env.base_url_clockify
+    And endpoint /v1/workspaces/{{workspaceId}}/projects/
+    When execute method GET
+    Then the status code should be 200
+    * define projectId = $.[0].id
+
+  @ListarProyectooNoAutorizado
+  Scenario: Listar proyecto
+    Given call Clockify.feature@WorkSpace
+    And base url env.base_url_clockify
+    And endpoint /
+    When execute method GET
+    Then the status code should be 200
+    * define projectId = $.[0].id
 
   @ListarProyecto
   Scenario: Listar proyecto
