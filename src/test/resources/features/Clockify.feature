@@ -34,7 +34,7 @@ Feature: Clockify
     Given call Clockify.feature@WorkSpace
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects
-    And set value "Proyecto1" of key name in body agregarProyecto.json
+    And set value "ProyectoTest" of key name in body agregarProyecto.json
     When execute method POST
     Then the status code should be 201
 
@@ -122,10 +122,10 @@ Feature: Clockify
     Given call Clockify.feature@TraerProyecto
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
-    And set value "ProyectoRenombrado" of key name in body agregarProyecto.json
+    And set value "ProyectoTestRenombrado" of key name in body agregarProyecto.json
     When execute method PUT
     Then the status code should be 200
-    And response should be name = ProyectoRenombrado
+    And response should be name = ProyectoTestRenombrado
 
   @RP @RenombrarProyectoErrorHeader @RenombrarProyectoFallido @Error @401
   Scenario: Renombrar un proyecto con accion no autorizado
@@ -133,7 +133,7 @@ Feature: Clockify
     And call Clockify.feature@TraerProyecto
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
-    And set value "ProyectoRenombrado" of key name in body agregarProyecto.json
+    And set value "ProyectoTestRenombrado" of key name in body agregarProyecto.json
     When execute method PUT
     Then the status code should be 401
 
@@ -142,7 +142,7 @@ Feature: Clockify
     Given call Clockify.feature@TraerProyecto
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
-    And set value "ProyectoRenombrado" of key name in body no json
+    And set value "ProyectoTestRenombrado" of key name in body no json
     When execute method PUT
     Then the status code should be 400
 
@@ -151,7 +151,7 @@ Feature: Clockify
     Given call Clockify.feature@TraerProyecto
     And base url env.base_url_clockify
     And endpoint /no_header/
-    And set value "ProyectoRenombrado" of key name in body agregarProyecto.json
+    And set value "ProyectoTestRenombrado" of key name in body agregarProyecto.json
     When execute method PUT
     Then the status code should be 404
 
