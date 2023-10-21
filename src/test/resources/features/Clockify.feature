@@ -6,25 +6,25 @@ Feature: Clockify
     And header Accept = */*
     And header x-api-key = NGY2NGQ1N2ItZWY0NC00OWFiLWIzNjktY2ZmMzE3MmU0ZTU0
 
-  @WorkSpace
-  Scenario: Listar Espacio de Trabajo
+  @WorkSpace @200
+  Scenario: Traer Workspaces
     Given base url env.base_url_clockify
     And endpoint /v1/workspaces
     When execute method GET
     Then the status code should be 200
     * define workspaceId = $.[0].id
 
-  @Crear
+  @CrearProyecto @201
   Scenario: Crear un proyecto
     Given call Clockify.feature@WorkSpace
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects
-    And set value "ProyectoTest" of key name in body agregarProyecto.json
+    And set value "Proyecto1" of key name in body agregarProyecto.json
     When execute method POST
     Then the status code should be 201
 
-  @ListarProyecto
-  Scenario: Listar proyecto
+  @TraerProyecto @Exitoso @200
+  Scenario: Traer proyecto
     Given call Clockify.feature@WorkSpace
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects/
@@ -32,17 +32,17 @@ Feature: Clockify
     Then the status code should be 200
     * define projectId = $.[0].id
 
-  @BuscarporID
+  @BuscarporID @200
   Scenario: Buscar proyecto por ID
-    Given call Clockify.feature@ListarProyecto
+    Given call Clockify.feature@TraerProyecto
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     When execute method GET
     Then the status code should be 200
 
-  @RenombrarProyecto
+  @RenombrarProyecto @200
   Scenario: Renombrar un proyecto
-    Given call Clockify.feature@ListarProyecto
+    Given call Clockify.feature@TraerProyecto
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects/{{projectId}}
     And set value "ProyectoRenombrado" of key name in body agregarProyecto.json
