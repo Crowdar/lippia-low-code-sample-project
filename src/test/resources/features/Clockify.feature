@@ -19,7 +19,7 @@ Feature: Clockify
     Given call Clockify.feature@WorkSpace
     And base url env.base_url_clockify
     And endpoint /v1/workspaces/{{workspaceId}}/projects
-    And set value "Proyecto1" of key name in body agregarProyecto.json
+    And set value "Proyecto" of key name in body agregarProyecto.json
     When execute method POST
     Then the status code should be 201
 
