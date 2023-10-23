@@ -1,0 +1,41 @@
+{
+  "id": "6525d566fe961b435921cad4",
+  "name": "projecto1",
+  "hourlyRate": {
+    "amount": 0,
+    "currency": "USD"
+  },
+  "clientId": "",
+  "workspaceId": "651f3817894cd94491a90671",
+  "billable": true,
+  "memberships": [
+    {
+      "userId": "651f3817894cd94491a90670",
+      "hourlyRate": null,
+      "costRate": null,
+      "targetId": "6525d566fe961b435921cad4",
+      "membershipType": "PROJECT",
+      "membershipStatus": "ACTIVE"
+    }
+  ],
+  "color": "#009688",
+  "estimate": {
+    "estimate": "PT0S",
+    "type": "AUTO"
+  },
+  "archived": false,
+  "duration": "PT0S",
+  "clientName": "",
+  "note": "",
+  "costRate": null,
+  "timeEstimate": {
+    "estimate": "PT0S",
+    "type": "AUTO",
+    "resetOption": null,
+    "active": false,
+    "includeNonBillable": true
+  },
+  "budgetEstimate": null,
+  "template": false,
+  "public": true
+}
