@@ -1,0 +1,212 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "billable": {
+      "type": "boolean"
+    },
+    "clientId": {
+      "type": "string"
+    },
+    "color": {
+      "type": "string"
+    },
+    "estimate": {
+      "type": "object",
+      "properties": {
+        "estimate": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "estimate",
+        "type"
+      ]
+    },
+    "hourlyRate": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "since": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "since"
+      ]
+    },
+    "isPublic": {
+      "type": "boolean"
+    },
+    "memberships": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "hourlyRate": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "since": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "since"
+              ]
+            },
+            "membershipStatus": {
+              "type": "string"
+            },
+            "membershipType": {
+              "type": "string"
+            },
+            "targetId": {
+              "type": "string"
+            },
+            "userId": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "hourlyRate",
+            "membershipStatus",
+            "membershipType",
+            "targetId",
+            "userId"
+          ]
+        }
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "public": {
+      "type": "boolean"
+    },
+    "tasks": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "assigneeId": {
+              "type": "string"
+            },
+            "assigneeIds": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "billable": {
+              "type": "boolean"
+            },
+            "budgetEstimate": {
+              "type": "integer"
+            },
+            "costRate": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "since": {
+                  "type": "string"
+                },
+                "sinceAsInstant": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "since",
+                "sinceAsInstant"
+              ]
+            },
+            "estimate": {
+              "type": "string"
+            },
+            "hourlyRate": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "since": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "since"
+              ]
+            },
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "projectId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "userGroupIds": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "assigneeId",
+            "assigneeIds",
+            "billable",
+            "budgetEstimate",
+            "costRate",
+            "estimate",
+            "hourlyRate",
+            "id",
+            "name",
+            "projectId",
+            "status",
+            "userGroupIds"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "billable",
+    "clientId",
+    "color",
+    "estimate",
+    "hourlyRate",
+    "isPublic",
+    "memberships",
+    "name",
+    "note",
+    "public",
+    "tasks"
+  ]
+}
